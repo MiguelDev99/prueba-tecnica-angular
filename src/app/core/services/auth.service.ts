@@ -1,9 +1,13 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { tap, throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
+  constructor(private http: HttpClient) {}
+
   private clientId = '802dbde4bae04a4dbd072ba74541f257';
   private redirectUri = 'http://127.0.0.1:4200/callback';
   private scopes = [
@@ -47,4 +51,41 @@ export class AuthService {
 
     window.location.href = url;
   }
+
+  refreshAccessToken() {
+    console.warn('Token expirado o inválido, redirigiendo al login');
+
+    localStorage.removeItem('access_token');
+    localStorage.removeItem('refresh_token');
+
+    window.location.href = '/'; // o usá Router para navegación angular
+
+    return throwError(() => new Error('Token expirado. Redirigiendo al login...'));
+  }
+
+  handleCallback(code: string) {
+    const codeVerifier = localStorage.getItem('code_verifier');
+  
+    const body = new URLSearchParams({
+      client_id: this.clientId,
+      grant_type: 'authorization_code',
+      code: code,
+      redirect_uri: this.redirectUri,
+      code_verifier: codeVerifier || '',
+    });
+  
+    return this.http.post('https://accounts.spotify.com/api/token', body.toString(), {
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+    }).pipe(
+      tap((res: any) => {
+        localStorage.setItem('access_token', res.access_token);
+        if (res.refresh_token) {
+          localStorage.setItem('refresh_token', res.refresh_token);
+        }
+      })
+    );
+  }
+  
 }
