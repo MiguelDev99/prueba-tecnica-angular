@@ -10,17 +10,21 @@
     </div>
   
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-      <div *ngFor="let artist of artists" class="bg-gray-800 p-4 rounded shadow">
-        <img *ngIf="artist.images.length" [src]="artist.images[0].url" alt="Imagen"
-          class="w-full h-48 object-cover rounded mb-2"/>
-        <h2 class="text-xl font-semibold">{{ artist.name }}</h2>
-        <p class="text-sm text-gray-300">
-          Seguidores: {{ artist.followers.total | number }}
-        </p>
-        <p class="text-sm text-gray-400">
-          Géneros: {{ artist.genres.join(', ') || 'N/A' }}
-        </p>
-      </div>
-    </div>
+        <div
+          *ngFor="let artist of artists"
+          (click)="goToAlbums(artist.id)"
+          class="bg-gray-800 p-4 rounded shadow cursor-pointer hover:bg-gray-700 transition"
+        >
+          <img *ngIf="artist.images.length" [src]="artist.images[0].url" alt="Imagen"
+            class="w-full h-48 object-cover rounded mb-2"/>
+          <h2 class="text-xl font-semibold">{{ artist.name }}</h2>
+          <p class="text-sm text-gray-300">
+            Seguidores: {{ artist.followers.total | number }}
+          </p>
+          <p class="text-sm text-gray-400">
+            Géneros: {{ artist.genres.join(', ') || 'N/A' }}
+          </p>
+        </div>
+      </div>      
 </div>
   

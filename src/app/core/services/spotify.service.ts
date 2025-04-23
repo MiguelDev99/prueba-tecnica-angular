@@ -23,4 +23,19 @@ export class SpotifyService {
       },
     });
   }
+  getArtistAlbums(artistId: string) {
+    const token = localStorage.getItem('access_token');
+  
+    return this.http.get(`${this.baseUrl}/artists/${artistId}/albums`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      params: {
+        include_groups: 'album',
+        limit: 20,
+      },
+    });
+  }
+  
+  
 }
