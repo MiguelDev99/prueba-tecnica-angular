@@ -48,6 +48,18 @@ export class SpotifyService {
       },
     });
   }
+  getUserPlaylists() {
+    const token = localStorage.getItem('access_token');
+  
+    return this.http.get(`${this.baseUrl}/me/playlists`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      params: {
+        limit: 20,
+      },
+    });
+  }
   
   
 }
