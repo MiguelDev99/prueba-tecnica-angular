@@ -1,0 +1,26 @@
+<div class="min-h-screen bg-gray-900 text-white p-6">
+    <h1 class="text-2xl font-bold mb-4">Buscar Artistas</h1>
+  
+    <div class="flex gap-2 mb-6">
+      <input type="text" [(ngModel)]="searchTerm" placeholder="Escribe un artista"
+        class="p-2 rounded w-full text-black"/>
+      <button (click)="onSearch()" class="bg-green-500 px-4 py-2 rounded">
+        Buscar
+      </button>
+    </div>
+  
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div *ngFor="let artist of artists" class="bg-gray-800 p-4 rounded shadow">
+        <img *ngIf="artist.images.length" [src]="artist.images[0].url" alt="Imagen"
+          class="w-full h-48 object-cover rounded mb-2"/>
+        <h2 class="text-xl font-semibold">{{ artist.name }}</h2>
+        <p class="text-sm text-gray-300">
+          Seguidores: {{ artist.followers.total | number }}
+        </p>
+        <p class="text-sm text-gray-400">
+          Géneros: {{ artist.genres.join(', ') || 'N/A' }}
+        </p>
+      </div>
+    </div>
+</div>
+  
