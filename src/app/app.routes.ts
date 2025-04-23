@@ -5,6 +5,7 @@ import { SearchBarComponent } from './search/search-bar/search-bar.component';
 import { ArtistAlbumsComponent } from './artist/albums/artist-albums.component';
 import { AlbumTracksComponent } from './artist/albums/tracks/album-tracks.component';
 import { UserPlaylistsComponent } from './user/playlists/user-playlists.component';
+import { PublicPlaylistsComponent } from './explore/playlists/public-playlists.component';
 
 export const routes: Routes = [
     { path: '', component: LoginComponent },
@@ -13,4 +14,5 @@ export const routes: Routes = [
     { path: 'artist/:id/albums', component: ArtistAlbumsComponent },
     { path: 'album/:id/tracks', component: AlbumTracksComponent },
     { path: 'playlists', component: UserPlaylistsComponent },
+    { path: 'public-playlists', component: PublicPlaylistsComponent },
 ];

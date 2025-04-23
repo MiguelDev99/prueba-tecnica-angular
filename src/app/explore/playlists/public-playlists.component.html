@@ -1,0 +1,24 @@
+<div class="min-h-screen bg-gray-900 text-white p-6">
+    <h2 class="text-2xl font-bold mb-4">Playlists públicas de Spotify</h2>
+  
+    <div *ngIf="loading" class="text-gray-300">Cargando playlists...</div>
+    <div *ngIf="error" class="text-red-400">Error al cargar playlists.</div>
+  
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4" *ngIf="!loading && !error">
+      <div *ngFor="let playlist of playlists" class="bg-gray-800 p-4 rounded shadow">
+        <img *ngIf="playlist.images.length" [src]="playlist.images[0].url" alt="Cover"
+          class="w-full h-48 object-cover rounded mb-2" />
+  
+        <h3 class="text-lg font-semibold">{{ playlist.name }}</h3>
+        <p class="text-sm text-gray-400">Tracks: {{ playlist.tracks.total }}</p>
+  
+        <button
+          (click)="follow(playlist.id)"
+          class="mt-2 bg-green-500 text-white px-3 py-1 rounded text-sm hover:bg-green-600 transition"
+        >
+          Seguir Playlist
+        </button>
+      </div>
+    </div>
+</div>
+  
