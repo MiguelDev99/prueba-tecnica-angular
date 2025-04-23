@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule, NgIf, NgFor, DatePipe } from '@angular/common';
 import { SpotifyService } from '../../core/services/spotify.service';
 
@@ -14,7 +14,7 @@ export class ArtistAlbumsComponent {
   loading = true;
   error = false;
 
-  constructor(private route: ActivatedRoute, private spotify: SpotifyService) {
+  constructor(private route: ActivatedRoute, private spotify: SpotifyService, private router: Router) {
     const artistId = this.route.snapshot.paramMap.get('id');
 
     if (!artistId) {
@@ -34,5 +34,8 @@ export class ArtistAlbumsComponent {
         this.loading = false;
       },
     });
+  }
+  goToTracks(albumId: string) {
+    this.router.navigate(['/album', albumId, 'tracks']);
   }
 }

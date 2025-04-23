@@ -36,6 +36,18 @@ export class SpotifyService {
       },
     });
   }
+  getAlbumTracks(albumId: string) {
+    const token = localStorage.getItem('access_token');
+  
+    return this.http.get(`${this.baseUrl}/albums/${albumId}/tracks`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      params: {
+        limit: 50,
+      },
+    });
+  }
   
   
 }
