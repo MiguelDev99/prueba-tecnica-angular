@@ -1,0 +1,26 @@
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+
+@Injectable({
+  providedIn: 'root',
+})
+export class SpotifyService {
+  private baseUrl = 'https://api.spotify.com/v1';
+
+  constructor(private http: HttpClient) {}
+
+  searchArtists(query: string) {
+    const token = localStorage.getItem('access_token');
+
+    return this.http.get(`${this.baseUrl}/search`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      params: {
+        q: query,
+        type: 'artist',
+        limit: 10,
+      },
+    });
+  }
+}
