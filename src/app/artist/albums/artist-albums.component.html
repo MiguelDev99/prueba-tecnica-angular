@@ -1,20 +1,28 @@
-<div class="min-h-screen bg-gray-900 text-white p-6">
-    <h2 class="text-2xl font-bold mb-4">Álbumes</h2>
-  
-    <div *ngIf="loading" class="text-gray-300">Cargando álbumes...</div>
-    <div *ngIf="error" class="text-red-400">Error al cargar álbumes.</div>
-  
-    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4" *ngIf="!loading && !error">
-      <div
-        *ngFor="let album of albums"
-        (click)="goToTracks(album.id)"
-        class="bg-gray-800 p-4 rounded shadow cursor-pointer hover:bg-gray-700 transition"
-      >
-        <img *ngIf="album.images.length" [src]="album.images[0].url" alt="Portada del álbum"
-          class="w-full h-48 object-cover rounded mb-2" />
-        <h3 class="text-lg font-semibold">{{ album.name }}</h3>
-        <p class="text-sm text-gray-400">Lanzado en {{ album.release_date | date: 'yyyy' }}</p>
-      </div>
+<div class="min-h-screen bg-[#0F0F0F] text-white p-6 font-sans">
+  <h2 class="text-3xl font-bold mb-6 text-cyan-400 text-center">Álbumes</h2>
+
+  <div *ngIf="loading" class="text-gray-400 text-center mt-10 animate-pulse">
+    Cargando álbumes...
+  </div>
+
+  <div *ngIf="error" class="text-red-400 text-center mt-10">
+    Error al cargar álbumes.
+  </div>
+
+  <div *ngIf="!loading && !error"
+       class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-4">
+    <div
+      *ngFor="let album of albums"
+      (click)="goToTracks(album.id)"
+      class="bg-white/5 hover:bg-white/10 rounded-xl p-4 shadow-md cursor-pointer transition"
+    >
+      <img *ngIf="album.images.length"
+           [src]="album.images[0].url"
+           alt="Portada del álbum"
+           class="w-full h-48 object-cover rounded-lg mb-4" />
+
+      <h3 class="text-lg font-semibold text-cyan-300">{{ album.name }}</h3>
+      <p class="text-sm text-gray-400">Lanzado en {{ album.release_date | date: 'yyyy' }}</p>
     </div>
+  </div>
 </div>
-  

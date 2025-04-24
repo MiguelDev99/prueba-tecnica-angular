@@ -1,13 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { AuthService } from '../../core/services/auth.service';
+import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-callback',
-  template: `<p>Procesando login...</p>`,
+  standalone: true,
+  imports: [NgIf],
+  templateUrl: './callback.component.html',
 })
 export class CallbackComponent implements OnInit {
+  userName: string | null = null;
+  loading = true;
+
   constructor(
     private route: ActivatedRoute,
     private http: HttpClient,
@@ -17,8 +23,9 @@ export class CallbackComponent implements OnInit {
 
   ngOnInit(): void {
     const code = this.route.snapshot.queryParamMap.get('code');
-  
+
     if (code) {
+      console.log('Código recibido:', code);
       this.auth.handleCallback(code).subscribe({
         next: (res: any) => {
           this.http.get('https://api.spotify.com/v1/me', {
@@ -26,17 +33,19 @@ export class CallbackComponent implements OnInit {
               Authorization: `Bearer ${res.access_token}`,
             },
           }).subscribe({
-            next: (user) => {
-              console.log('Usuario autenticado:', user);
-              alert(`¡Bienvenido ${(user as any).display_name}!`);
-              this.router.navigate(['/search']);
+            next: (user: any) => {
+              this.userName = user.display_name;
+              this.loading = false;
             },
             error: (err) => console.error('Error al obtener usuario:', err),
           });
         },
         error: (err) => console.error('Token error:', err),
-      });      
+      });
     }
+    
   }
-  
+  goToSearch() {
+    this.router.navigate(['/search']);
+  }  
 }

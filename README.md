@@ -23,3 +23,9 @@ Este proyecto es parte de una prueba técnica. Se trata de una aplicación Angul
 ```bash
 npm install
 npm run start
+
+La interfaz está inspirada en el siguiente diseño de Figma:
+
+[Musium Music App UI - Figma](https://www.figma.com/community/file/1143115506742537849/musium-music-app-ui)
+
+El logo utilizado fue extraído de este UI Kit.
