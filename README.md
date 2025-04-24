@@ -5,7 +5,7 @@ Este proyecto es parte de una prueba técnica en Angular. Se trata de una aplica
 
 ## 🛠 Tecnologías utilizadas
 
-- **Angular 17** (Componentes standalone)
+- **Angular 18** (Componentes standalone)
 - **Tailwind CSS** para estilos rápidos y responsivos
 - **Spotify Web API**
 - **RxJS** para manejo de flujos reactivos
