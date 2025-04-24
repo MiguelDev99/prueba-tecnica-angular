@@ -1,6 +1,13 @@
 <div class="min-h-screen bg-[#0F0F0F] text-white p-6 font-sans">
   <h2 class="text-3xl font-bold mb-6 text-cyan-400 text-center">Canciones del Álbum</h2>
 
+  <div class="flex justify-center mb-8">
+    <a [routerLink]="['/artist', artistId, 'albums']"
+      class="px-4 py-1 rounded-full border border-cyan-400 text-cyan-400 hover:bg-cyan-400 hover:text-black text-sm font-medium transition duration-200 ease-in-out">
+      ← Volver a Álbumes
+    </a>
+  </div>
+
   <div *ngIf="loading" class="text-gray-400 text-center mt-10 animate-pulse">
     Cargando canciones...
   </div>

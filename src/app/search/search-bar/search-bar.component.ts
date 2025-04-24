@@ -2,12 +2,12 @@ import { Component } from '@angular/core';
 import { SpotifyService } from '../../core/services/spotify.service';
 import { DecimalPipe, NgFor, NgIf } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-search-bar',
   standalone: true,
-  imports: [NgFor, NgIf, FormsModule, DecimalPipe ],
+  imports: [NgFor, NgIf, FormsModule, DecimalPipe, RouterModule ],
   templateUrl: './search-bar.component.html',
 })
 export class SearchBarComponent {
@@ -21,11 +21,13 @@ export class SearchBarComponent {
 
     this.spotifyService.searchArtists(this.searchTerm).subscribe((res: any) => {
       this.artists = res.artists.items;
-      console.log('Artistas encontrados:', this.artists);
     });
   }
   goToAlbums(artistId: string) {
-    console.log('ID del artista:', artistId);
     this.router.navigate(['/artist', artistId, 'albums']);
+  }
+  logout() {
+    localStorage.clear();
+    this.router.navigate(['/']);
   }
 }

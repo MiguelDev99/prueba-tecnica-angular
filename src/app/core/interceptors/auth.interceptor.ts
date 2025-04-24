@@ -1,11 +1,5 @@
 import { Injectable } from '@angular/core';
-import {
-  HttpEvent,
-  HttpHandler,
-  HttpInterceptor,
-  HttpRequest,
-  HttpErrorResponse,
-} from '@angular/common/http';
+import { HttpEvent, HttpHandler, HttpInterceptor,  HttpRequest, HttpErrorResponse, } from '@angular/common/http';
 import { Observable, catchError, switchMap, throwError } from 'rxjs';
 import { AuthService } from '../services/auth.service';
 
@@ -14,13 +8,11 @@ export class AuthInterceptor implements HttpInterceptor {
   constructor(private auth: AuthService) {}
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    console.log('Interceptando request a:', req.url);
     const accessToken = localStorage.getItem('access_token');
 
     let authReq = req;
 
     if (accessToken) {
-      console.log('Agregando Authorization:', `Bearer ${accessToken}`);
       authReq = req.clone({
         setHeaders: {
           Authorization: `Bearer ${accessToken}`,
@@ -42,7 +34,6 @@ export class AuthInterceptor implements HttpInterceptor {
               return next.handle(retryReq);
             }),
             catchError((err) => {
-              // Token no renovable, redirige o elimina sesión
               localStorage.removeItem('access_token');
               localStorage.removeItem('refresh_token');
               return throwError(() => err);

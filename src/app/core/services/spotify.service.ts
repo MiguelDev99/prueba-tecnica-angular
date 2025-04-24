@@ -47,7 +47,7 @@ export class SpotifyService {
   followPlaylist(playlistId: string) {
     return this.http.put(
       `${this.baseUrl}/playlists/${playlistId}/followers`,
-      {}, // cuerpo vacío
+      {},
       {
         headers: {
           'Content-Type': 'application/json',

@@ -1,14 +1,17 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { CommonModule, NgIf, NgFor } from '@angular/common';
 import { SpotifyService } from '../../core/services/spotify.service';
+import { RouterLink } from '@angular/router';
+import { ToastComponent } from '../../shared/toast/toast.component';
 
 @Component({
   selector: 'app-public-playlists',
   standalone: true,
-  imports: [CommonModule, NgIf, NgFor],
+  imports: [CommonModule, NgIf, NgFor, RouterLink, ToastComponent],
   templateUrl: './public-playlists.component.html',
 })
 export class PublicPlaylistsComponent {
+  @ViewChild(ToastComponent) toast!: ToastComponent;
   playlists: any[] = [];
   loading = true;
   error = false;
@@ -20,7 +23,6 @@ export class PublicPlaylistsComponent {
         this.loading = false;
       },
       error: (err) => {
-        console.error('Error al obtener playlists públicas:', err);
         this.error = true;
         this.loading = false;
       },
@@ -30,11 +32,10 @@ export class PublicPlaylistsComponent {
   follow(playlistId: string) {
     this.spotify.followPlaylist(playlistId).subscribe({
       next: () => {
-        alert('Seguiste la playlist con éxito 🎉');
+        this.toast.show('Seguiste la playlist con éxito');
       },
       error: (err) => {
-        console.error('Error al seguir playlist:', err);
-        alert('Ocurrió un error al seguir la playlist');
+        this.toast.show('Ocurrió un error al seguir la playlist');
       },
     });
   }

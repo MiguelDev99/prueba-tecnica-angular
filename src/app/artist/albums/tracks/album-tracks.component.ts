@@ -1,21 +1,23 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { CommonModule, NgIf, NgFor } from '@angular/common';
 import { SpotifyService } from '../../../core/services/spotify.service';
 
 @Component({
   selector: 'app-album-tracks',
   standalone: true,
-  imports: [CommonModule, NgIf, NgFor],
+  imports: [CommonModule, NgIf, NgFor, RouterLink],
   templateUrl: './album-tracks.component.html',
 })
 export class AlbumTracksComponent {
   tracks: any[] = [];
   loading = true;
   error = false;
+  artistId: string | null = null;
 
   constructor(private route: ActivatedRoute, private spotify: SpotifyService) {
     const albumId = this.route.snapshot.paramMap.get('id');
+    this.artistId = this.route.snapshot.paramMap.get('artistId') || localStorage.getItem('artistId');
 
     if (!albumId) {
       this.error = true;
@@ -29,7 +31,6 @@ export class AlbumTracksComponent {
         this.loading = false;
       },
       error: (err) => {
-        console.error('Error al obtener canciones:', err);
         this.error = true;
         this.loading = false;
       },

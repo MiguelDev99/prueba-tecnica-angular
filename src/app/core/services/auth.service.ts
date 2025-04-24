@@ -1,12 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { tap, throwError } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private router: Router) {}
 
   private clientId = '802dbde4bae04a4dbd072ba74541f257';
   private redirectUri = 'http://127.0.0.1:4200/callback';
@@ -58,7 +59,7 @@ export class AuthService {
     localStorage.removeItem('access_token');
     localStorage.removeItem('refresh_token');
 
-    window.location.href = '/'; // o usá Router para navegación angular
+    this.router.navigate(['/']);
 
     return throwError(() => new Error('Token expirado. Redirigiendo al login...'));
   }
@@ -87,5 +88,4 @@ export class AuthService {
       })
     );
   }
-  
 }

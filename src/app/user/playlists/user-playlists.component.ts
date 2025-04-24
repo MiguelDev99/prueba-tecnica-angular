@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
 import { SpotifyService } from '../../core/services/spotify.service';
 import { CommonModule, NgIf, NgFor } from '@angular/common';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-user-playlists',
   standalone: true,
-  imports: [CommonModule, NgIf, NgFor],
+  imports: [CommonModule, NgIf, NgFor, RouterLink],
   templateUrl: './user-playlists.component.html',
 })
 export class UserPlaylistsComponent {
@@ -20,7 +21,6 @@ export class UserPlaylistsComponent {
         this.loading = false;
       },
       error: (err) => {
-        console.error('Error al obtener playlists:', err);
         this.error = true;
         this.loading = false;
       },

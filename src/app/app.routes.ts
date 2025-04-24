@@ -7,10 +7,11 @@ import { AlbumTracksComponent } from './artist/albums/tracks/album-tracks.compon
 import { UserPlaylistsComponent } from './user/playlists/user-playlists.component';
 import { PublicPlaylistsComponent } from './explore/playlists/public-playlists.component';
 import { authGuard } from './core/guards/auth.guard';
+import { noAuthGuard } from './core/guards/no-auth.guard';
 
 export const routes: Routes = [
-    { path: '', component: LoginComponent },
-    { path: 'callback', component: CallbackComponent },
+    { path: '', component: LoginComponent, canActivate: [noAuthGuard] },
+    { path: 'callback', component: CallbackComponent, canActivate: [noAuthGuard] },
     { path: 'search', canActivate: [authGuard], component: SearchBarComponent },
     { path: 'artist/:id/albums', canActivate: [authGuard], component: ArtistAlbumsComponent },
     { path: 'album/:id/tracks', canActivate: [authGuard], component: AlbumTracksComponent },

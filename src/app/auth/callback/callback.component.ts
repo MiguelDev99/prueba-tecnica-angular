@@ -25,7 +25,6 @@ export class CallbackComponent implements OnInit {
     const code = this.route.snapshot.queryParamMap.get('code');
 
     if (code) {
-      console.log('Código recibido:', code);
       this.auth.handleCallback(code).subscribe({
         next: (res: any) => {
           this.http.get('https://api.spotify.com/v1/me', {
